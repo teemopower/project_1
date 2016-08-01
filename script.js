@@ -46,7 +46,7 @@ var mainState = {
     game.load.image('sffield', "assets/honda1.png");
     game.load.image('fightImg', 'assets/fightImage.png');
     game.load.image('player','assets/ryu-sm.png');
-    game.load.image('player2','assets/akuma.png');
+    game.load.image('player2','assets/akuma2.png');
     game.load.image('fireBall', 'assets/hado.png');
     game.load.image('fireBall2', 'assets/hadoAkuma.png');
     game.load.image('enemy', 'assets/hado.png');
@@ -68,8 +68,8 @@ var mainState = {
     game.time.events.add(Phaser.Timer.SECOND * 1, fadePicture, this);
 
     // add player
-    player = game.add.sprite(game.world.centerX -300, game.world.centerY + 130, 'player');
-    player2 = game.add.sprite(game.world.centerX +100, game.world.centerY - 300, 'player2')
+    player = game.add.sprite(game.world.centerX -350, game.world.centerY + 130, 'player');
+    player2 = game.add.sprite(game.world.centerX +210, game.world.centerY - 300, 'player2')
     // add physics to players
     game.physics.enable(player, Phaser.Physics.ARCADE);
     game.physics.enable(player2, Phaser.Physics.ARCADE);
@@ -141,11 +141,11 @@ var mainState = {
     player.body.velocity.x = 0;
 
     if(cursors.left.isDown){
-      player.body.velocity.x = -350;
+      player.body.velocity.x = -450;
     }
 
     if(cursors.right.isDown){
-      player.body.velocity.x = 350;
+      player.body.velocity.x = 450;
     }
 
     if(cursors.down.isDown){
@@ -158,11 +158,11 @@ var mainState = {
     player2.body.velocity.x = 0;
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.A)){
-      player2.body.velocity.x = -350;
+      player2.body.velocity.x = -400;
     }
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
-      player2.body.velocity.x = 350;
+      player2.body.velocity.x = 400;
     }
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
@@ -201,7 +201,7 @@ function hadoken(){
         fireBall.reset(player.x + 14, player.y);
 
         // add physics to fireball to make it go up, set bullet speed
-        fireBall.body.velocity.y = -400;
+        fireBall.body.velocity.y = -300;
         fireBall.body.velocity.x = 0;
 
         // update fireball time in ms
