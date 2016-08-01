@@ -2,6 +2,10 @@ var game = new Phaser.Game(800,600,Phaser.CANVAS, 'gameDiv');
 
 // background
 var sffield;
+
+// main menu background
+var sfBackground;
+
 // fight image
 var fightImage;
 
@@ -9,7 +13,11 @@ var fightImage;
 var player;
 var player2;
 var cursor;
+
+// BUTTONS
 var againButton;
+var instructButton;
+var mainButton;
 
 //fireballs
 var fireBalls;
@@ -28,40 +36,24 @@ var akumaSound;
 var youSound;
 var winSound;
 
+var introSound;
+
 // create score
-var score = 0
+var score = 0;
 var scoreBox;
 
 // create score
-var score2 = 0
+var score2 = 0;
 var scoreBox2;
 
 // YOU WIN TEXT BOX
 var endMessage;
 
 var mainState = {
-  preload: function(){
-
-    // load images
-    game.load.image('sffield', "assets/honda1.png");
-    game.load.image('fightImg', 'assets/fightImage.png');
-    game.load.image('player','assets/ryu-sm.png');
-    game.load.image('player2','assets/akuma2.png');
-    game.load.image('fireBall', 'assets/hado.png');
-    game.load.image('fireBall2', 'assets/hadoAkuma.png');
-    game.load.image('enemy', 'assets/hado.png');
-    game.load.image('againButton', '/assets/button.png');
-
-    // load audio and mp3
-    game.load.audio('fireBallSound', 'assets/hadoSound.mp3');
-    game.load.audio('ehonda', 'assets/ehonda.mp3');
-    game.load.audio('fight', 'assets/fight.mp3');
-    game.load.audio('akuma', 'assets/akuma.mp3');
-    game.load.audio('winSound', 'assets/win.mp3');
-  },
+  
   create:function(){
     // add the background
-    sffield = game.add.tileSprite(0,0,800,600,'sffield')
+    sffield = game.add.tileSprite(0,0,800,600,'sffield');
     // add fight logo
     fightImage = game.add.sprite(game.world.centerX -100, game.world.centerY -80, 'fightImg');
     // add TIMER to remove fight logo - calls fadePicture()
@@ -69,7 +61,7 @@ var mainState = {
 
     // add player
     player = game.add.sprite(game.world.centerX -350, game.world.centerY + 130, 'player');
-    player2 = game.add.sprite(game.world.centerX +210, game.world.centerY - 300, 'player2')
+    player2 = game.add.sprite(game.world.centerX +210, game.world.centerY - 300, 'player2');
     // add physics to players
     game.physics.enable(player, Phaser.Physics.ARCADE);
     game.physics.enable(player2, Phaser.Physics.ARCADE);
@@ -258,10 +250,6 @@ function hadoken3(){
   } 
 }
 
-function randValue(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 // fireballs colliding with fireballs
 function collisionHandler(fireBalls, fireBalls2){
   fireBalls.kill();
@@ -331,5 +319,8 @@ function actionOnClick(){
 }
 
 game.state.add('mainState', mainState);
+game.state.add('Preload', nBack.Preload);
+game.state.add('MainMenu', nBack.MainMenu);
+game.state.add('Instruct', nBack.Instruct);
 
-game.state.start('mainState');
+game.state.start('Preload');
