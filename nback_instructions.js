@@ -6,9 +6,9 @@ var count = 0;
 
 nBack.Instruct.prototype = {
     create: function() {
-        this.game.stage.backgroundColor = '#91E4FF';
-        this.game.add.text(120,100, 'Akuma: \n W - Left Fireball \n S - Right Fireball \n D - Move Right \n A - Move Left', {font: '30px Arial', fill: '#000000'});
-        this.game.add.text(450,100, 'Ryu: \n DOWN - Fireball \n RIGHT - Move Right \n LEFT - Move Left', {font: '30px Arial', fill: '#000000'});                 
+        this.game.stage.backgroundColor = '#000000';
+        this.game.add.text(120,100, 'Akuma: \n W - Left Fireball \n S - Right Fireball \n D - Move Right \n A - Move Left', {font: '30px Arial', fill: '#FFFFFF'});
+        this.game.add.text(450,100, 'Ryu: \n DOWN - Fireball \n RIGHT - Move Right \n LEFT - Move Left', {font: '30px Arial', fill: '#FFFFFF'});                 
         
         mainButton = this.game.add.button(16, 500, 'mainButton', this.options, this);   
     },

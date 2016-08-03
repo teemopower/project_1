@@ -26,6 +26,8 @@ nBack.Preload.prototype = {
     this.load.audio('akuma', 'assets/akuma.mp3');
     this.load.audio('winSound', 'assets/win.mp3');
     this.load.audio('introSound', 'assets/intro.mp3');
+
+    this.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
         
     },
     create: function() {

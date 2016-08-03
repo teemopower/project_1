@@ -49,6 +49,8 @@ var scoreBox2;
 // YOU WIN TEXT BOX
 var endMessage;
 
+var explosions;
+
 var mainState = {
   
   create:function(){
@@ -62,6 +64,7 @@ var mainState = {
     // add player
     player = game.add.sprite(game.world.centerX -350, game.world.centerY + 130, 'player');
     player2 = game.add.sprite(game.world.centerX +210, game.world.centerY - 300, 'player2');
+
     // add physics to players
     game.physics.enable(player, Phaser.Physics.ARCADE);
     game.physics.enable(player2, Phaser.Physics.ARCADE);
@@ -119,6 +122,16 @@ var mainState = {
     fightSound.play();
     ehondaSound.play();
 
+    // bounce Akuma
+    game.add.tween(player2).to( { angle: 360 }, 1000, Phaser.Easing.Linear.None, true);
+    bounceAkuma();
+
+    //  Create explosions
+    explosions = game.add.group();
+    explosions.createMultiple(300, 'kaboom');
+    explosions.forEach(setupPlayer, this);
+
+    //player.body.collideWorldBounds = true;
   },
   update:function(){
 
@@ -187,8 +200,6 @@ function hadoken(){
     var fireBall = fireBalls.getFirstExists(false);
 
       if(fireBall){
-
-        //console.log(fireBall);
         // match bullet position to players position
         fireBall.reset(player.x + 14, player.y);
 
@@ -211,8 +222,6 @@ function hadoken2(){
     var fireBall2 = fireBalls2.getFirstExists(false);
 
       if(fireBall2){
-
-        //console.log(fireBall);
         // match bullet position to players position
         fireBall2.reset(player2.x, player2.y);
 
@@ -235,8 +244,6 @@ function hadoken3(){
     var fireBall2 = fireBalls2.getFirstExists(false);
 
       if(fireBall2){
-
-        //console.log(fireBall);
         // match bullet position to players position
         fireBall2.reset(player2.x, player2.y);
 
@@ -258,7 +265,12 @@ function collisionHandler(fireBalls, fireBalls2){
 
 // Ryu hits Akuma
 function collisionHandler2(fireBalls, fireBalls2){
-  
+  //  Create an explosion
+  var explosion = explosions.getFirstExists(false);
+  explosion.reset(player2.body.x + 100, player2.body.y +50);
+  explosion.play('kaboom', 30, false, true);
+
+  // remove akuma
   player2.kill();
 
   winSound.play();
@@ -272,6 +284,11 @@ function collisionHandler2(fireBalls, fireBalls2){
 // Akuma hits RYU
 function collisionHandler3(fireBalls, fireBalls2){
   
+  //  Create an explosion
+  var explosion = explosions.getFirstExists(false);
+  explosion.reset(player.body.x + 100, player.body.y);
+  explosion.play('kaboom', 30, false, true);
+
   player.kill();
 
   winSound.play();
@@ -282,6 +299,47 @@ function collisionHandler3(fireBalls, fireBalls2){
   score2 += 1;
 }
 
+function raiseAkuma(){
+  // if score is less than - revive akuma and call picture, bring fight logo and fight sound
+  player2.reset(game.world.centerX +100, game.world.centerY - 300, 'player2');
+  picture();
+
+  bounceAkuma();
+
+  game.add.tween(player2).to( { angle: 360 }, 1000, Phaser.Easing.Linear.None, true);
+
+  if(score === 2){
+    player2.kill();
+  } 
+}
+
+function raiseRyu(){
+  player.reset(game.world.centerX -300, game.world.centerY + 130, 'player');
+  picture();
+  //bounceRyu();
+  if(score2 === 2){
+    player.kill();
+  } 
+}
+
+// EXPLOSIONS 
+function setupPlayer (player1) {
+  player1.anchor.x = 0.5;
+  player1.anchor.y = 0.5;
+  player1.animations.add('kaboom');
+}
+
+function bounceAkuma(){
+  player2.body.velocity.setTo(-60, 60);
+  player2.body.collideWorldBounds = true;
+  player2.body.bounce.setTo(.9, .9);
+  player2.body.acceleration.y = -40
+  player2.body.acceleration.x = -40;
+}
+
+function bounceRyu(){
+}
+
 function fadePicture(){
   game.add.tween(fightImage).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 }
@@ -289,25 +347,8 @@ function fadePicture(){
 function picture(){
   fightSound.play();
   game.add.tween(fightImage).to({ alpha: 1 }, 0, Phaser.Easing.Linear.None, true);
-
   // call to fadePic to remove fight logo
   game.time.events.add(Phaser.Timer.SECOND * 1, fadePicture, this);
-
-}
-
-function raiseAkuma(){
-  // if score is less than - revive akuma and call picture, bring fight logo and fight sound
-  if(score < 2){
-    player2.reset(game.world.centerX +100, game.world.centerY - 300, 'player2');
-    picture();
-  }
-}
-
-function raiseRyu(){
-  if(score2 < 2){
-    player.reset(game.world.centerX -300, game.world.centerY + 130, 'player');
-    picture();
-  }
 }
 
 // try again button
