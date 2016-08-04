@@ -259,6 +259,11 @@ function hadoken3(){
 
 // fireballs colliding with fireballs
 function collisionHandler(fireBalls, fireBalls2){
+   //  Create an explosion
+  var explosion = explosions.getFirstExists(false);
+  explosion.reset(fireBalls.body.x, fireBalls.body.y);
+  explosion.play('kaboom', 30, false, true);
+  
   fireBalls.kill();
   fireBalls2.kill();
 }
