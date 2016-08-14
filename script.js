@@ -307,22 +307,24 @@ function collisionHandler3(fireBalls, fireBalls2){
 function raiseAkuma(){
   // if score is less than - revive akuma and call picture, bring fight logo and fight sound
   player2.reset(game.world.centerX +100, game.world.centerY - 300, 'player2');
-  picture();
-
   bounceAkuma();
 
   game.add.tween(player2).to( { angle: 360 }, 1000, Phaser.Easing.Linear.None, true);
 
-  if(score === 2){
+  if(score < 2){
+    picture();
+  } else if(score >= 2){
     player2.kill();
   } 
 }
 
 function raiseRyu(){
   player.reset(game.world.centerX -300, game.world.centerY + 130, 'player');
-  picture();
+  
   //bounceRyu();
-  if(score2 === 2){
+  if(score < 2){
+    picture();
+  } else if(score2 >= 2){
     player.kill();
   } 
 }
