@@ -322,7 +322,7 @@ function raiseRyu(){
   player.reset(game.world.centerX -300, game.world.centerY + 130, 'player');
   
   //bounceRyu();
-  if(score < 2){
+  if(score2 < 2){
     picture();
   } else if(score2 >= 2){
     player.kill();
