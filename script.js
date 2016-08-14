@@ -324,7 +324,9 @@ function raiseRyu(){
   //bounceRyu();
   if(score2 < 2){
     picture();
-  } else if(score2 >= 2){
+  } 
+
+  if(score2 >= 2){
     player.kill();
   } 
 }
