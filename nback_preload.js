@@ -4,7 +4,7 @@ nBack.Preload = function() {};
 
 nBack.Preload.prototype = {
     preload: function() {
-    
+    game.scale.pageAlignHorizontally = true;
      // load images
     this.load.image('background', 'assets/sfBackground.png');
     this.load.image('sffield', "assets/honda1.png");
